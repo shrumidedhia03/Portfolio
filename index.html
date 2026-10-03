@@ -1,857 +1,893 @@
 <!DOCTYPE html>
-<!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
-<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shrumi Dedhia | Data Engineer and Agentic AI Builder</title>
+<meta name="description" content="Portfolio of Shrumi Dedhia: data engineer, agentic AI builder and cloud architect. Healthcare and enterprise data platforms on GCP and AWS, Spark, Databricks, dbt, LangChain and MCP.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%B0%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Shrumi Dedhia | Data Engineer and Agentic AI Builder">
+<meta property="og:description" content="Healthcare and enterprise data platforms, plus AI agents on top of them. GCP, AWS, Spark, Databricks, dbt, LangChain, MCP.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#070f1c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef2f7;
+    --veil: rgba(238, 242, 247, 0.92);
+    --panel: #ffffff;
+    --panel-2: #e6ecf4;
+    --line: #cfd8e4;
+    --grid: rgba(13, 27, 46, 0.045);
+    --text: #0d1b2e;
+    --muted: #55677c;
+    --signal: #1657c7;
+    --signal-soft: rgba(22, 87, 199, 0.10);
+    --amber: #a85f00;
+    --amber-soft: rgba(168, 95, 0, 0.11);
+    --ok: #0f7a5a;
+    --term-bg: #0b1626;
+    --term-text: #cfe0f5;
+    --term-muted: #7f95b0;
+    --term-signal: #7cc4ff;
+    --term-amber: #ffd166;
+    --term-ok: #63d6b3;
 
-   <!--- basic page needs
-   ================================================== -->
-   <meta charset="utf-8">
-	<title>Shrumi's Portfolio</title>
-	<meta name="description" content="">  
-	<meta name="author" content="">
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #070f1c;
+      --veil: rgba(7, 15, 28, 0.92);
+      --panel: #0d1829;
+      --panel-2: #12203a;
+      --line: #1c2c45;
+      --grid: rgba(124, 196, 255, 0.045);
+      --text: #dbe6f4;
+      --muted: #8095b0;
+      --signal: #7cc4ff;
+      --signal-soft: rgba(124, 196, 255, 0.11);
+      --amber: #ffd166;
+      --amber-soft: rgba(255, 209, 102, 0.10);
+      --ok: #63d6b3;
+      --term-bg: #050b15;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #070f1c;
+    --veil: rgba(7, 15, 28, 0.92);
+    --panel: #0d1829;
+    --panel-2: #12203a;
+    --line: #1c2c45;
+    --grid: rgba(124, 196, 255, 0.045);
+    --text: #dbe6f4;
+    --muted: #8095b0;
+    --signal: #7cc4ff;
+    --signal-soft: rgba(124, 196, 255, 0.11);
+    --amber: #ffd166;
+    --amber-soft: rgba(255, 209, 102, 0.10);
+    --ok: #63d6b3;
+    --term-bg: #050b15;
+  }
 
-   <!-- mobile specific metas
-   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 76px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 44px 44px;
+    color: var(--text);
+    font-family: "Bricolage Grotesque", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--signal); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
 
- 	<!-- CSS
-   ================================================== -->
-   <link rel="stylesheet" href="css/base.css">  
-   <link rel="stylesheet" href="css/main.css">
-   <link rel="stylesheet" href="css/vendor.css">     
+  /* Boot sequence */
+  #boot {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--term-bg); color: var(--term-text);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    transition: opacity .45s ease, visibility .45s ease;
+  }
+  #boot.done { opacity: 0; visibility: hidden; }
+  #boot pre {
+    margin: 0; width: min(680px, 100%);
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: clamp(.72rem, 2.6vw, .92rem); line-height: 1.85;
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  #boot .ok { color: var(--term-ok); }
+  #boot .sig { color: var(--term-signal); }
+  #boot .dim { color: var(--term-muted); }
+  #boot .skip { position: absolute; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); left: 0; right: 0; text-align: center; font: 400 .78rem "IBM Plex Mono", monospace; color: var(--term-muted); }
 
-   <!-- script
-   ================================================== -->   
-	<script src="js/modernizr.js"></script>
-	<script src="js/pace.min.js"></script>
+  /* Header */
+  header.top {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+    background: var(--veil);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top-in { display: flex; align-items: center; gap: 1.25rem; min-height: 60px; }
+  .brand { font: 500 .95rem "IBM Plex Mono", monospace; color: var(--text); text-decoration: none; white-space: nowrap; }
+  .brand span { color: var(--signal); }
+  nav.links { display: flex; gap: .25rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  nav.links::-webkit-scrollbar { display: none; }
+  nav.links a { color: var(--muted); text-decoration: none; padding: .4rem .7rem; border-radius: 4px; font-size: .95rem; white-space: nowrap; }
+  nav.links a:hover { color: var(--text); }
+  nav.links a.on { color: var(--text); background: var(--signal-soft); }
+  .theme-btn { flex: none; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 4px; padding: .35rem .6rem; font: 400 .8rem "IBM Plex Mono", monospace; cursor: pointer; }
+  .theme-btn:hover { color: var(--text); border-color: var(--muted); }
+  #progress { height: 2px; background: var(--signal); transform-origin: left; transform: scaleX(0); }
 
-   <!-- favicons
-	================================================== -->
-	<link rel="icon" type="image/png" href="favicon.png">
+  /* Hero */
+  .hero { padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(2rem, 5vw, 3.5rem); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  .status { display: inline-flex; align-items: center; gap: .55rem; font-size: .95rem; color: var(--muted); margin: 0 0 1.4rem; }
+  .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 var(--ok); animation: pulse 2.2s infinite; flex: none; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  h1 { font-size: clamp(2.9rem, 8.2vw, 6rem); line-height: .95; font-weight: 800; letter-spacing: -.035em; margin: 0 0 1.25rem; font-variation-settings: "opsz" 96; }
+  .role-line { font: 500 clamp(1rem, 2.4vw, 1.2rem) "IBM Plex Mono", monospace; color: var(--signal); min-height: 1.7em; margin: 0 0 1.4rem; }
+  .caret { display: inline-block; width: .55ch; height: 1.05em; background: var(--signal); vertical-align: -.15em; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .pitch { max-width: 34rem; font-size: clamp(1.1rem, 2.2vw, 1.3rem); line-height: 1.5; margin: 0 0 1.75rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .btn { display: inline-flex; align-items: center; padding: .7rem 1.15rem; border-radius: 4px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font: 500 1rem "Bricolage Grotesque", sans-serif; text-decoration: none; cursor: pointer; }
+  .btn:hover { border-color: var(--signal); }
+  .btn.primary { background: var(--signal); border-color: var(--signal); color: var(--bg); font-weight: 700; }
+  :root[data-theme="light"] .btn.primary { color: #fff; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .btn.primary { color: #fff; } }
 
+  /* Live log */
+  .log { background: var(--term-bg); color: var(--term-text); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .log-bar { display: flex; align-items: center; justify-content: space-between; padding: .6rem .9rem; border-bottom: 1px solid rgba(127,149,176,.22); font: 400 .78rem "IBM Plex Mono", monospace; color: var(--term-muted); }
+  .log-body { padding: .9rem; height: 19rem; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; gap: .55rem; font: 400 .82rem/1.5 "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+  .log-line { display: grid; grid-template-columns: 4.2rem 4.8rem 1fr; gap: .6rem; }
+  .log-line .t { color: var(--term-muted); }
+  .log-line .k { color: var(--term-signal); }
+  .log-line .k.a { color: var(--term-amber); }
+  .log-line .k.g { color: var(--term-ok); }
+  @media (max-width: 520px) { .log-line { grid-template-columns: 1fr; gap: 0; } .log-line .t { display: none; } }
+
+  /* Pipeline strip */
+  .pipe-wrap { margin-top: clamp(2.2rem, 5vw, 3.5rem); overflow-x: auto; padding-bottom: .5rem; }
+  .pipe { display: grid; grid-template-columns: repeat(6, minmax(120px, 1fr)); min-width: 780px; align-items: stretch; }
+  .stage { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .8rem .85rem; margin-right: 26px; }
+  .stage:last-child { margin-right: 0; }
+  .stage:not(:last-child)::after {
+    content: ""; position: absolute; left: 100%; top: 50%; width: 26px; height: 2px; transform: translateY(-50%);
+    background: repeating-linear-gradient(90deg, var(--signal) 0 5px, transparent 5px 10px);
+    background-size: 10px 2px; animation: flow 0.9s linear infinite;
+  }
+  @keyframes flow { to { background-position-x: 10px; } }
+  .stage b { display: block; font-size: 1rem; margin-bottom: .2rem; }
+  .stage span { display: block; font: 400 .74rem/1.45 "IBM Plex Mono", monospace; color: var(--muted); }
+  .pipe-note { font-size: .92rem; color: var(--muted); margin: .9rem 0 0; max-width: 46rem; }
+
+  /* Sections */
+  .sec { display: grid; grid-template-columns: minmax(0, 210px) minmax(0, 1fr); gap: 1.5rem clamp(1.5rem, 4vw, 3.5rem); padding: clamp(2.75rem, 6vw, 4.75rem) 0; border-top: 1px solid var(--line); }
+  .rail h2 { font-size: 1.7rem; line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .6rem; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
+  .rail p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+  .sec-body > :first-child { margin-top: 0; }
+
+  .about p { max-width: 42rem; margin: 0 0 1rem; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0; margin: 1.75rem 0 0; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+  .facts div { padding: .9rem 1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-right: -1px; margin-bottom: -1px; }
+  .facts dt { font-size: .85rem; color: var(--muted); margin-bottom: .15rem; }
+  .facts dd { margin: 0; font-weight: 500; }
+
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .metric { background: var(--panel); padding: 1.25rem 1.2rem 1.35rem; }
+  .metric .n { font-size: clamp(2.3rem, 5vw, 3.1rem); font-weight: 800; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .metric p { margin: .55rem 0 0; color: var(--muted); font-size: .97rem; line-height: 1.4; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); padding: 3px; gap: 3px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .seg button { border: 0; background: transparent; color: var(--muted); padding: .5rem .95rem; border-radius: 3px; font: 500 .98rem "Bricolage Grotesque", sans-serif; cursor: pointer; }
+  .seg button:hover { color: var(--text); }
+  .seg button[aria-pressed="true"] { background: var(--signal); color: var(--bg); }
+  :root[data-theme="light"] .seg button[aria-pressed="true"] { color: #fff; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .seg button[aria-pressed="true"] { color: #fff; } }
+
+  .cases { display: grid; gap: 1rem; }
+  .case { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--signal); border-radius: 2px 8px 8px 2px; padding: 1.15rem 1.3rem 1.2rem; }
+  .case[data-cat="data"] { border-left-color: var(--amber); }
+  .case[hidden] { display: none; }
+  .case h3 { font-size: 1.28rem; line-height: 1.25; letter-spacing: -.01em; margin: 0 0 .5rem; }
+  .case p { margin: 0 0 .75rem; max-width: 46rem; }
+  .case .result { font-weight: 500; }
+  .case .result b { color: var(--signal); }
+  .case[data-cat="data"] .result b { color: var(--amber); }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+  .chips li { font: 400 .76rem "IBM Plex Mono", monospace; padding: .2rem .55rem; border-radius: 3px; background: var(--panel-2); color: var(--muted); }
+  .legend { display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: .9rem; color: var(--muted); margin: 0 0 1rem; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: .4rem; vertical-align: -1px; }
+
+  .runs { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+  .run { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: .5rem 1.5rem; padding: 1.1rem 1.2rem; border-bottom: 1px solid var(--line); }
+  .run:last-child { border-bottom: 0; }
+  .run.live { background: var(--signal-soft); }
+  .when { font: 400 .8rem/1.5 "IBM Plex Mono", monospace; color: var(--muted); }
+  .state { display: inline-flex; align-items: center; gap: .4rem; margin-top: .35rem; font-weight: 500; }
+  .state i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); display: inline-block; }
+  .run.live .state i { animation: pulse 2.2s infinite; }
+  .state.done { color: var(--muted); font-weight: 400; }
+  .state.done i { background: var(--muted); animation: none; }
+  .run h3 { margin: 0; font-size: 1.15rem; line-height: 1.3; }
+  .run h3 span { font-weight: 400; color: var(--muted); }
+  .run p { margin: .4rem 0 .6rem; max-width: 46rem; }
+  .run .chips { margin-top: .5rem; }
+
+  .edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .edu div { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1rem 1.1rem; }
+  .edu h3 { margin: 0 0 .2rem; font-size: 1.08rem; }
+  .edu p { margin: 0; color: var(--muted); font-size: .96rem; }
+
+  .stack { display: grid; gap: 1.1rem; }
+  .stack h3 { margin: 0 0 .5rem; font-size: 1rem; }
+  .stack .chips li { font-size: .82rem; padding: .3rem .65rem; color: var(--text); }
+
+  .papers { display: grid; gap: 1rem; margin-bottom: 2rem; }
+  .paper { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--ok); border-radius: 2px 8px 8px 2px; padding: 1.1rem 1.3rem; }
+  .paper h3 { margin: 0 0 .35rem; font-size: 1.15rem; }
+  .paper p { margin: 0 0 .5rem; color: var(--muted); }
+  .sub { font-size: 1.05rem; margin: 0 0 .9rem; }
+  .archive { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .proj { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1rem 1.1rem; display: flex; flex-direction: column; }
+  .proj h3 { margin: 0 0 .15rem; font-size: 1.08rem; line-height: 1.3; }
+  .proj .course { font: 400 .76rem "IBM Plex Mono", monospace; color: var(--muted); margin: 0 0 .55rem; }
+  .proj p { margin: 0 0 .7rem; font-size: .95rem; line-height: 1.5; }
+  .proj a { margin-top: auto; font-size: .95rem; }
+
+  /* Terminal */
+  .term { background: var(--term-bg); color: var(--term-text); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font: 400 .88rem/1.6 "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+  .term-out { height: 20rem; overflow-y: auto; padding: 1rem; overscroll-behavior: contain; }
+  .term-out .line { margin: 0 0 .45rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .term-out .cmd { color: var(--term-signal); }
+  .term-out .muted { color: var(--term-muted); }
+  .term-out a { color: var(--term-amber); }
+  .term-out .ok { color: var(--term-ok); }
+  .term-in { display: flex; gap: .6rem; align-items: center; border-top: 1px solid rgba(127,149,176,.22); padding: .7rem 1rem; }
+  .term-in span { color: var(--term-signal); flex: none; }
+  .term-in input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--term-text); font: inherit; outline: none; padding: .2rem 0; }
+  .term-in:focus-within { background: rgba(124,196,255,.06); }
+  .quick { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+  .quick button { border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 4px; padding: .35rem .7rem; font: 400 .82rem "IBM Plex Mono", monospace; cursor: pointer; }
+  .quick button:hover { border-color: var(--signal); }
+
+  /* Telemetry + contact */
+  .telemetry { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+  .telemetry div { background: var(--panel); padding: .85rem 1rem; }
+  .telemetry b { display: block; font-size: 1.6rem; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .telemetry span { font: 400 .74rem "IBM Plex Mono", monospace; color: var(--muted); }
+  .contact-lead { font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: 1.2; letter-spacing: -.02em; font-weight: 700; max-width: 34rem; margin: 0 0 1.5rem; }
+
+  footer { border-top: 1px solid var(--line); padding: 1.5rem 0 2rem; color: var(--muted); font-size: .92rem; }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .sec { grid-template-columns: 1fr; }
+    .rail h2 { position: static; }
+    .run { grid-template-columns: 1fr; }
+    .brand { display: none; }
+    nav.links { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .pulse, .run.live .state i, .caret, .stage:not(:last-child)::after { animation: none; }
+    #boot { transition: none; }
+  }
+</style>
 </head>
-
-<body id="top">
-
-	<!-- header 
-   ================================================== -->
-   <header>   	
-   	<div class="row">
-
-   		<div class="top-bar">
-   			<a class="menu-toggle" href="#"><span>Menu</span></a>
-
-	   		<div class="logo menu-toggle">
-		         <a href="index.html">Shrumi Dedhia</a>
-		    </div>		      
-
-		   	<nav id="main-nav-wrap">
-					<ul class="main-navigation">
-						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
-						<li><a class="smoothscroll"  href="#about" title="">About</a></li>
-						<li><a class="smoothscroll"  href="#resume" title="">Resume</a></li>
-						<li><a class="smoothscroll"  href="#portfolio" title="">Portfolio</a></li>
-						<li><a class="smoothscroll"  href="#stats" title="">Stats</a></li>					
-						<li><a class="smoothscroll"  href="#contact" title="">Contact</a></li>				
-					</ul>
-				</nav>    		
-   		</div> <!-- /top-bar --> 
-   		
-   	</div> <!-- /row --> 		
-   </header> <!-- /header -->
-
-	<!-- intro section
-   ================================================== -->
-   <section id="intro">   
-
-   	<div class="intro-overlay"></div>	
-
-   	<div class="intro-content">
-   		<div class="row">
-
-   			<div class="col-twelve">
-
-	   			<h5>Hello, World.</h5>
-	   			<h1>I'm Shrumi Dedhia.</h1>
-
-	   			<p class="intro-position">
-	   				<span>Data Engineer</span>
-					<span>Agentic AI Builder</span>
-					<span>Cloud Architect</span>
-	   			</p>
-
-	   			<a class="button stroke smoothscroll" href="#about" title="">More About Me</a>
-
-	   		</div>  
-   			
-   		</div>   		 		
-   	</div> <!-- /intro-content --> 
-
-   	<ul class="intro-social">
-         <li><a href="https://instagram.com/shrumidedhia?igshid=NTc4MTIwNjQ2YQ==" target="_blank"><i class="fa fa-instagram"></i></a></li>
-         <li><a href="https://github.com/shrumidedhia03" target="_blank"><i class="fa fa-github"></i></a></li>
-		 <li><a href="https://www.linkedin.com/in/shrumidedhia/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-         <li><a href="https://www.facebook.com/shrumi.dedhia?mibextid=LQQJ4d" target="_blank"><i class="fa fa-facebook"></i></a></li>
-		 <li><a href="mailto:shrumidedhia@gwmail.gwu.edu" target="_blank"><i class="fa fa-envelope"></i></a></li>
-      </ul> <!-- /intro-social -->      	
-
-   </section> <!-- /intro -->
-
-
-   <!-- about section
-   ================================================== -->
-   <section id="about">  
-
-   	<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h1>ABOUT</h1>
-   			<h4>Let me introduce myself.</h4>
-
-   			<div class="intro-info">
-
-   				<img src="images/profile.jpg" alt="Profile Picture">
-
-   				<p class="lead">Hi, I'm Shrumi. I hold a Master's degree in Computer Science from George Washington University and currently work as a Data Engineer at Zane Networks, LLC, where I design and scale cloud-native data platforms across healthcare and enterprise environments. My work spans the full data engineering stack — from building real-time streaming pipelines with Spark and Databricks, architecting modern data warehouses on GCP and AWS, to engineering agentic AI systems using LangChain, MCP servers, and LLMs. I'm passionate about bridging production-grade data engineering with the emerging world of GenAI to build intelligent, scalable, and reliable data ecosystems.</p>
-			</div>
-   		</div>   		
-   	</div> <!-- /section-intro -->
-
-   	<div class="row about-content">
-
-   		<div class="col-six tab-full">
-
-   			<h3>Profile</h3>
-   			<p class="text-align-justify">Through diverse experience spanning Data Analysis, Data Engineering, Cloud Architecture, and Agentic AI across healthcare and enterprise environments, I have built production-grade data platforms on GCP and AWS. With a Master's in Computer Science from George Washington University, I bring deep expertise in Python, Spark, Databricks, dbt, and LLM-powered systems, delivering scalable and intelligent data ecosystems.</p>
-
-   			<ul class="info-list">
-   				<li>
-   					<strong>Fullname:</strong>
-   					<span>Shrumi Hasmukh Dedhia</span>
-   				</li>
-   				<li>
-   					<strong>Hobbies:</strong>
-   					<span>Global Travel & Cultural Exploration, Community Volunteering, Dance & Creative Arts, Fitness, Culinary Experimentation</span>
-   				</li>
-   				<li>
-   					<strong>Aspiring Job Roles:</strong>
-   					<span>Data Engineer, AI Engineer, Sr. Data Analyst</span>
-   				</li>
-				   <li>
-					<strong>Location:</strong>
-					<span>Washington, District of Columbia, USA</span>
-				</li>
-   				<li>
-   					<strong>Email:</strong>
-   					<span>shrumi.dedhia@gmail.com</span>
-   				</li>
-
-   			</ul> <!-- /info-list -->
-
-   		</div>
-
-   		<div class="col-six tab-full">
-
-   			<h3>Skills</h3>
-   			<p>I have strong expertise in Python, SQL, and R, with hands-on experience in cloud data engineering across GCP and AWS, distributed computing with Spark and Databricks, and agentic AI development using LangChain and MCP servers.</p>
-
-				<ul class="skill-bars">
-				   <li>
-				   	<div class="progress percent90"><span>90%</span></div>
-				   	<strong>Python</strong>
-				   </li>
-					<li>
-				   	<div class="progress percent90"><span>95%</span></div>
-				   	<strong>SQL</strong>
-				   </li>
-					<li>
-				   	<div class="progress percent95"><span>85%</span></div>
-				   	<strong>GCP</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent65"><span>85%</span></div>
-				   	<strong>AWS</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent80"><span>65%</span></div>
-				   	<strong>Agentic AI</strong>
-				   </li>
-				   <li>
-				   	<div class="progress percent75"><span>80%</span></div>
-				   	<strong>Databricks</strong>
-				   </li>
-				   <li>
-
-				   	<div class="progress percent75"><span>75%</span></div>
-				   	<strong>R</strong>
-				   </li>
-      
-				</ul> <!-- /skill-bars -->		
-
-   		</div>
-
-   	</div>
-
-   	<div class="row button-section">
-   		<div class="col-twelve">
-   			<a href="#contact" title="Hire Me" class="button button-primary smoothscroll">Hire Me</a>
-   			<a href="https://drive.google.com/file/d/1RjzD8bsN5yvCzJ70yyn0Zav4Q8ubWkwv/view?usp=sharing" target="_blank" title="Download CV" class="button button-primary">Download CV</a>
-		</div>
-   	</div>
-   </section> <!-- /process-->    
-
-
-   <!-- resume Section
-   ================================================== -->
-	<section id="resume" class="grey-section">
-
-	<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h1>RESUME</h1>
-   			<h4>More of my credentials.</h4>
-
-   		</div>   		
-   	</div> <!-- /section-intro--> 
-
-   	<div class="row resume-timeline">
-
-   		<div class="col-twelve resume-header">
-
-   			<h2>Work Experience</h2>
-
-   		</div> <!-- /resume-header -->
-
-   		<div class="col-twelve">
-
-   			<div class="timeline-wrap">
-				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Data Engineer</h3>
-	   					<p>Jan 2024 - Present</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Zane Networks LLC</h4>
-	   					<p>Engineered scalable data warehouse pipelines processing 5M+ daily records, cutting query execution time by 40% through partitioning, clustering, and cost-efficient slot reservation strategies. Built event-driven claims processing pipeline using Kinesis and Lambda to trigger real-time transformations and submissions, persisting claim status records in DynamoDB — monitored via CloudWatch alarms and SNS alerts for pipeline failures and SLA breaches. Architected GCP-native ingestion platform integrating MySQL with Pub/Sub and Cloud Functions for CDC-based incremental loading, improving near real-time dashboard latency by 55%. Built HIPAA-compliant patient data pipelines on Databricks using Python, implementing PHI masking, schema validation, and data quality checks — reducing manual preparation effort by 75%. Developed distributed Spark transformation workflows across petabyte-scale datasets, leveraging Delta Lake for ACID-compliant versioned storage and time-travel capabilities across the enterprise lakehouse. Implemented dbt on Snowflake to modularize SQL transformation logic across 40+ models, establishing a medallion architecture with built-in tests, documentation, and version-controlled deployments. Deployed containerized pipeline workloads on GKE using Kubernetes manifests, designing modular ELT workflows with incremental loading and CDC strategies — reducing warehouse compute costs by 30%. Implemented GitHub Actions CI/CD pipeline integrating automated testing, Docker image builds, and ECR pushes — enabling zero-touch deployments to AWS ECS. Engineered a multi-agent AI system that streams FHIR-compliant workflow and assessment data into a data warehouse, autonomously queries against defined parameters, and generates personalized printable care plans. Built an AI agent to auto-parse claim rejection files, cross-reference source transactions, and surface plain-English remediation summaries on a client dashboard — reducing manual error triage time by 60%. Deployed Vertex AI predictive models over FHIR API healthcare streams to improve clinical decision support by 40%. Developed a RAG pipeline using Pinecone to semantically index 500K+ unstructured care plan documents, enabling natural language querying and population-level care gap identification at scale. Built an automated 508 compliance auditing platform using Playwright for headless UI crawling, multimodal AI scanning across PDFs and assessments, and automated remediation report generation — eliminating manual compliance reviews.<br>
-						Tech stack: Python, AWS, GCP, Databricks, Spark, Delta Lake, dbt, Snowflake, Airflow, FHIR API, Gemini, Jenkins</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Sr. Data Analyst</h3>
-	   					<p>Mar 2025 - Sept 2025</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>George Washington University</h4>
-	   					<p>Engineered a production R package using data.table for high-performance in-memory transformations, published via pkgdown and deployed with automated CI through GitHub Actions. Designed and maintained a PostgreSQL database with indexed schemas and query optimization, integrating synthetic dataset generation for pipeline validation. Engineered an MCP server in Python exposing PostgreSQL, statistical outputs, and R Markdown generation as standardized tools, enabling a LangChain-orchestrated Claude agent to autonomously generate publication-ready narrative reports, reducing manual report writing time by 70%.<br>
-						Tech stack:Python, R, PostgreSQL, data.table, pkgdown, GitHub Actions, Shiny, ggplot2, LangChain, MCP Servers, LLM</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-	
-	   				<div class="timeline-header">
-	   					<h3>Graduate Teaching Assistant</h3>
-	   					<p>August 2023 - May 2024</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Computer Science Department, George Washington University</h4>
-	   					<p>Supervising a class of Cloud Computing, Database Systems and Projects of more than 60 students, conducting lab sessions on Oracle, grading assignments, holding office hours. Assisting with creation of new material, and evaluating AWS lab assignments and quizzes. <br>
-						Tech stack: AWS, Google Cloud Platform, Oracle, Relational Databse</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Graduate Research Assistant</h3>
-	   					<p>May 2023 - August 2023</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Prof. Gina Adam - Adam Group, George Washington University</h4>
-	   					<p>Developed a Python-based mental health support chatbot, utilizing NLP techniques such as sentiment analysis. Independently leveraged TensorFlow for conversational AI, focusing on quality real-time assistance to over 1,000 users monthly with enhanced problem-solving accuracy.<br>
-						Tech stack: NLP, Deep Learning, Artificial Intelligence, Python, Machine Learning</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Data & Operations Analyst</h3>
-	   					<p>Nov 2022 - Dec 2023</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Compass Group</h4>
-	   					<p>Designed and implemented normalized data model in BigQuery to centralize operational inventory, recipe, & food logs, establishing a structured analytics foundation across cross-functional teams. Built Python-based ELT pipelines to ingest and transform operational data from GCS into BigQuery, automating previously manual Excel-based reporting workflows and reducing reporting cycle time by 70%. Developed self-service Tableau dashboards providing internal teams ad-hoc visibility into operational KPIs, eliminating recurring data requests and enabling non-technical stakeholders to query live datasets independently. Continually improved reporting infrastructure by iterating on BigQuery data models & Power BI refresh pipelines, simplifying data access across operations, procurement, and inventory management teams.<br>
-						Tech stack: GCP, Python, Power BI, Tableau, BigQuery </p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Data Engineer</h3>
-	   					<p>May 2021 - Aug 2022</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>CDP India Pvt. Ltd.</h4>
-	   					<p>Built end-to-end data pipelines using Python, Apache Spark, and Kafka to ingest and process 5TB+ of daily data for 1M+ daily commuters, ensuring low-latency delivery to downstream reporting and analytics layers. Designed MIS dashboards in Power BI providing real-time visibility into operational KPIs, enabling data-driven decisions for non-technical operations stakeholders. Implemented ARIMA-based time-series forecasting models in Python to predict peak and off-peak railway traffic patterns, directly informing crew scheduling, improving operational efficiency by 20%. Conducted data validation and anomaly detection across ingested pipeline records, implementing automated quality checks to flag irregular traffic patterns and maintain integrity of forecasting model inputs. Integrated Salesforce CRM data with operational datasets via Python ETL scripts, enabling cross-functional analytics that connected passenger experience metrics with infrastructure performance reporting.<br>
-						Tech stack: AWS, Python, Spark, Kafka, Machine Learning, Power BI, Time-Series Data </p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Machine Learning Intern</h3>
-	   					<p>August 2021 - October 2021</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Kubix Square</h4>
-	   					<p>Built and fine-tuned a machine learning model and implemented six different machine learning algorithms namely Gaussian Naïve Bayes, SVM, CNN, KNN, Linear Regression, and Random Forest to test and improve accuracy of sales predictions.<br>
-						Tech stack: Python, Machine Learning, Tensorflow, Keras, PyTorch, Pandas, Numpy, Data Visualization, Feature Extraction</p>
-					</div>
-
-				</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Data Scientist & Business Analyst Intern</h3>
-	   					<p>February 2021 - April 2021</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Sparks Foundation</h4>
-						<p>Implemented predictive analytics on real-world banking data; applied computational methods, increasing accuracy in anticipating results to 84.5%.<br>
-						Tech stack: Python, Google Cloud Platform, SQL, RDBMS, Machine Learning</p>
-					</div>
-
-				</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-briefcase"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Data Scientist Intern</h3>
-	   					<p>January 2020 - December 2020</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>Dalal Finserve Pvt Ltd</h4>
-						<p>Engineered database for 750+ customers, enabling loan credibility analysis and predictive modelling with 88% accuracy through feature engineering and hyperparameter optimization. Conducted statistical analysis, cleaned, preprocessed, and analyzed, resulting in improved data accuracy and model performance. Worked with cross-functional teams to develop dashboards and visualizations using Tableau and Power BI to communicate data insights and key performance metrics.<br>
-						Tech stack: MySQL, SQL, Python, Microsoft Azure, Tableau, Machine Learning</p>
-					</div>
-
-	   			</div> <!-- /timeline-block -->
-
-   			</div> <!-- /timeline-wrap -->   			
-
-   		</div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /resume-timeline -->
-   	
-   	<div class="row resume-timeline">
-
-   		<div class="col-twelve resume-header">
-
-   			<h2>Education</h2>
-
-   		</div> <!-- /resume-header -->
-
-   		<div class="col-twelve">
-
-   			<div class="timeline-wrap">
-
-   				<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Master's Degree</h3>
-	   					<p>August 2022 - May 2024</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>George Washington University, Washington DC</h4>
-	   					<p>Completed Master’s in Computer Science (May 2024) at George Washington University with a focus on Data Analysis and Machine Learning; GPA: 3.91. Coursework includes Big Data & Analytics, Data Mining, Advanced Software Paradigms, Algorithms, Applied Machine Learning, Information Retrieval Systems.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-	   			<div class="timeline-block">
-
-	   				<div class="timeline-ico">
-	   					<i class="fa fa-graduation-cap"></i>
-	   				</div>
-
-	   				<div class="timeline-header">
-	   					<h3>Bachelors Degree</h3>
-	   					<p>August 2018 - May 2022</p>
-	   				</div>
-
-	   				<div class="timeline-content text-align-justify">
-	   					<h4>University of Mumbai, India</h4>
-	   					<p>Completed Bachelor of Engineering in Information Technology (May 2022) at St. Francis Institute of Technology, University of Mumbai; GPA: 3.6. I took up courses like Software Engineering, Cloud Computing, Artificial Intelligence, Business Intelligence, Python, SQL, Java, UI/UX. These courses helped me to develop skills required to work in industry.</p>
-	   				</div>
-
-	   			</div> <!-- /timeline-block -->
-
-   			</div> <!-- /timeline-wrap -->   			
-
-   		</div> <!-- /col-twelve -->
-   		
-   	</div> <!-- /resume-timeline -->
-		
-	</section> <!-- /features -->
-
-
-	<!-- Portfolio Section
-   ================================================== -->
-	<section id="portfolio">
-		
-
-	<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h1>Portfolio</h1>
-   			<h4>Check Out Some of My Works.</h4>
-
-			<p class="lead text-align-justify">As an aspiring Data Scientist and Machine Learning enthusiast, I am driven to leverage the power of data to extract valuable insights and develop intelligent solutions. With a solid foundation in data analytics and machine learning, I have spent two years in the industry honing my skills in Python and utilizing popular libraries and frameworks such as NumPy, pandas, scikit-learn, and TensorFlow. From exploratory data analysis to building predictive models, I am passionate about uncovering patterns and trends to drive data-informed decision-making. Keeping pace with advancements in the field, I am eager to explore new techniques and architectures in data science and contribute to innovative projects. With a keen eye for detail and a collaborative mindset, I am committed to delivering impactful results and am excited to bring my expertise to new opportunities in the field of data science and machine learning.</p>
-   		</div>   		
-   	</div> <!-- /section-intro--> 
-	<section id="resume1">
-		<div class="row resume-timeline">
-
-			<div class="col-twelve resume-header">
- 
-				<h2>Computer Science Projects</h2>
- 
-			</div> <!-- /resume-header -->
- 
-			<div class="col-twelve">
- 
-				<div class="timeline-wrap">
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Taxi Fare Prediction</h3>
-						</div>
-
-						<div class="timeline-content text-align-justify">
-							<h4>Big Data Analytics -- <a href = "https://github.com/shrumidedhia03/gwbigdataanalytics2023-final-project-taxi-fare-predictors.git">Github Link</a></h4>
-							<p>Deployed a pipeline using AWS to create a model with 75 million rows of data. Employed CodeBuild for dataset operations, Sagemaker for model construction, and CloudWatch for continuous performance monitoring, all orchestrated through an S3 bucket for efficient data flow.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Clinical Dashboard in R</h3>
-						</div>
-
-						<div class="timeline-content text-align-justify">
-							<h4>R Programming</h4>
-							<p>Developed an R Shiny application to visualize patient health trends and clinical study metrics, enabling real-time monitoring for researchers. Built custom R functions and packages to automate data cleaning, transformation, and statistical analysis for structured and unstructured datasets.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Email Phishing Attack Detection</h3>
-						</div>
-
-						<div class="timeline-content text-align-justify">
-							<h4>Machine Learning</h4>
-							<p>Developed deep neural network models (LSTM, RNN, CNN) for email phishing detection, surpassing baseline performance and demonstrated the superiority of the CNN model through comparative analysis using the Enron dataset. Also, published research paper got accepted at HCII 2024.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Email Sender System</h3>
-						</div>
-
-						<div class="timeline-content text-align-justify">
-							<h4>Software Engineering -- <a href="https://github.com/shrumidedhia03/Email_System">Github Link</a></h4>
-							<p>Built a web application with React, Node.js, MySQL, and REST API, allowing users to compose and send emails conveniently while storing message data in a MySQL database.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>Microprocessor System</h3>
-						</div>
-
-						<div class="timeline-content text-align-justify">
-							<h4>Computer System Architecture -- <a href="https://github.com/shrumidedhia03/Computer-Systems-Architecture-Project">Github Link</a></h4>
-							<p>Developed a microprocessor system design using openjdk@18 and Maven. Used swing for GUI, and tested with Maven.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
-
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
-
-						<div class="timeline-header">
-							<h3>GW Meals</h3>
-						</div>
-
-						<div class="timeline-content text-align-justify">
-							<h4>Database Management System</h4>
-							<p>Developed an application in APEX Oracle for GW Meal Delivery System. Created Chen-style ERD Diagrams, Relational Schemas, SQL Scripts and Frontend of the application.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
- 
-					<div class="timeline-block">
- 
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
- 
-						<div class="timeline-header">
-							<h3>Personality Predictors</h3>
-						</div>
- 
-						<div class="timeline-content text-align-justify">
-							<h4>Machine Learning -- <a href="https://github.com/shrumidedhia03/Personality_Predictors">Github Link</a></h4>
-							<p>Built a ML based project to predict personality of a person using Myers Briggs Type Indicator and published a paper on same in IEEE 2nd Asian Conference on Innovation in Technology. Classified 8000 rows of data into 16 types of personalities and generated a bert base model using Python. Implemented real-world use cases, applied cross-entropy techniques to refine models’ accuracy, and predicted personalities using actual tweets from Twitter.</p>
-							<p><a href="https://ieeexplore.ieee.org/abstract/document/9909077">Published Paper Link</a></p>
-						</div>
- 
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
- 
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
- 
-						<div class="timeline-header">
-							<h3>Skin Care Website</h3>
-						</div>
- 
-						<div class="timeline-content text-align-justify">
-							<h4>Web Development -- <a href="https://github.com/shrumidedhia03/Web_Development_Project">Github Link</a></h4>
-							<p>Independently developed a full-fledged skincare e-commerce website from scratch, encompassing both frontend and backend components. Using HTML, CSS, PHP, JavaScript, JSON, and XML, crafted a visually appealing interface and seamlessly connected it to a MySQL database via PHPMyAdmin for efficient data management.</p>
-						</div>
- 
-					</div> <!-- /timeline-block -->
-					<div class="timeline-block">
- 
-						<div class="timeline-ico">
-							<i class="fa fa-desktop"></i>
-						</div>
- 
-						<div class="timeline-header">
-							<h3>Smart Water Level Detection System using IEEE 802.15</h3>
-						</div>
- 
-						<div class="timeline-content text-align-justify">
-							<h4>Internet of Everything</h4>
-							<p>Built a water level detector using Arduino UNO, IEEE 802.15, Sensors and Actuators. Configured the system to cut off the water supply automatically once the tank is full.</p>
-						</div>
-
-					</div> <!-- /timeline-block -->
- 
-				</div> <!-- /timeline-wrap -->   			
- 
-			</div> <!-- /col-twelve -->
-			
-		</div> <!-- /resume-timeline -->
-	</section>
-	</section> <!-- /portfolio --> 
-
-
-
-	
-	<!-- services Section
-   ================================================== -->
-
-
-	<!-- stats Section
-   ================================================== -->
-	<section id="stats" class="count-up">
-
-		<div class="row">
-			<div class="col-twelve">
-
-				<div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
-
-					<div class="bgrid stat">
-
-						<div class="icon-part">
-							<i class="icon-pencil-ruler"></i>
-						</div>
-
-						<h3 class="stat-count">
-							25
-						</h3>
-
-						<h5 class="stat-title">
-							Projects Completed
-						</h5>
-
-					</div> <!-- /stat -->					
-
-					<div class="bgrid stat">
-
-						<div class="icon-part">
-							<i class="icon-users"></i>
-						</div>
-
-						<h3 class="stat-count">
-							90
-						</h3>
-
-						<h5 class="stat-title">
-							Sleepless Nights
-						</h5>
-
-					</div> <!-- /stat -->
-
-					<div class="bgrid stat">
-
-						<div class="icon-part">
-							<i class="icon-badge"></i>
-						</div>
-
-						<h3 class="stat-count">
-							4
-						</h3>
-
-						<h5 class="stat-title">
-							Internships Completed
-						</h5>
-
-					</div> <!-- /stat -->									
-
-					<div class="bgrid stat">
-
-						<div class="icon-part">
-							<i class="icon-light-bulb"></i>
-						</div>
-
-						<h3 class="stat-count">
-							120
-						</h3>
-
-						<h5 class="stat-title">
-							Crazy Ideas
-						</h5>
-
-					</div> <!-- /stat -->
-
-					<div class="bgrid stat">
-
-						<div class="icon-part">
-							<i class="icon-cup"></i>
-						</div>
-
-						<h3 class="stat-count">
-							1500
-						</h3>
-
-						<h5 class="stat-title">
-							Coffee Cups
-						</h5>
-
-					</div> <!-- /stat -->
-
-					<div class="bgrid stat">
-
-						<div class="icon-part">
-							<i class="icon-clock"></i>
-						</div>
-
-						<h3 class="stat-count">
-							2000
-						</h3>
-
-						<h5 class="stat-title">
-							Hours
-						</h5>
-
-					</div> <!-- /stat -->
-
-				</div> <!-- /stats-list -->
-
-			</div> <!-- /twelve -->
-		</div> <!-- /row -->
-
-	</section> <!-- /stats -->
-
-	
-   <!-- contact
-   ================================================== -->
-	<section id="contact">
-
-		<div class="row section-intro">
-   		<div class="col-twelve">
-
-   			<h1>Contact</h1>
-   			<h4 class="blue-color">I'd Love To Hear From You.</h4>
-   		</div> 
-   	</div> <!-- /section-intro -->
-
-
-   	<div class="row contact-info">
-
-   		<div class="col-four tab-full">
-
-   			<div class="icon">
-   				<i class="icon-pin"></i>
-   			</div>
-
-   			<h5>Where to find me</h5>
-
-   			<p><a href="https://goo.gl/maps/eqPG9jrTqeZXdrzR6" target="_blank" id="gray" >
-				2450 Virginia Avenue NW<br>
-				Washington, DC<br>
-				20037 US
-			</a>
-            
-            </p>
-
-   		</div>
-
-   		<div class="col-four tab-full collapse">
-
-   			<div class="icon">
-   				<i class="icon-mail"></i>
-   			</div>
-
-   			<h5>Email Me At:</h5>
-
-   			<p><a href="mailto:shrumidedhia@gwu.edu" target="_blank" class="gray-color">shrumidedhia@gwu.edu</a><br>
-				<a href="mailto:shrumi.dedhia@gmail.com" target="_blank" class="gray-color">shrumi.dedhia@gmail.com</a>
-			</p>
-
-   		</div>
-
-   		<div class="col-four tab-full">
-
-   			<div class="icon">
-   				<i class="icon-phone"></i>
-   			</div>
-
-   			<h5>Call Me At</h5>
-
-   			<p>Phone: <a href="tel:+12025699548" target="_blank" class="gray-color">(+1)202 569 9548</a><br>
-			   </p>
-
-   		</div>
-   		
-   	</div> <!-- /contact-info -->
-		
-	</section> <!-- /contact -->
-
-
-   <!-- footer
-   ================================================== -->
-
-   <footer>
-
-
-      	<div class="col-six tab-full">
-	      	<div class="copyright"> 
-		        	<span>Developed by Shrumi Dedhia</a></span>
-		         </div>		                  
-	      	</div>
-
-	      	<div id="go-top">
-		         <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
-		      </div>
-
-      	</div> <!-- /row -->     	
-   </footer>  
-
-   <div id="preloader"> 
-    	<div id="loader"></div>
-   </div> 
-
-   <!-- Java Script
-   ================================================== --> 
-   <script src="js/jquery-2.1.3.min.js"></script>
-   <script src="js/plugins.js"></script>
-   <script src="js/main.js"></script>
-
+<body>
+
+<div id="boot" role="status" aria-label="Loading portfolio">
+  <pre id="boot-text"></pre>
+  <div class="skip">Press any key or tap to skip</div>
+</div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#top" aria-label="Back to top">shrumi<span>@</span>portfolio</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#impact">Impact</a>
+      <a href="#work">Case studies</a>
+      <a href="#experience">Experience</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#projects">Projects</a>
+      <a href="#terminal">Terminal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-btn" id="theme" type="button" aria-label="Switch color theme">theme</button>
+  </div>
+  <div id="progress" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="status"><span class="pulse" aria-hidden="true"></span>Open to data engineer, AI engineer and senior data analyst roles</p>
+          <h1>Shrumi Dedhia</h1>
+          <p class="role-line" aria-live="off"><span id="role"></span><span class="caret" aria-hidden="true"></span></p>
+          <p class="pitch">I build the cloud data platforms that healthcare and enterprise teams depend on, then put AI agents on top of them to do the work people used to do by hand.</p>
+          <div class="cta">
+            <a class="btn primary" href="#work">See the case studies</a>
+            <a class="btn" href="https://drive.google.com/file/d/1RjzD8bsN5yvCzJ70yyn0Zav4Q8ubWkwv/view?usp=sharing" target="_blank" rel="noopener">Download CV</a>
+            <a class="btn" href="#contact">Get in touch</a>
+          </div>
+        </div>
+
+        <div class="log" aria-label="Live log of selected results from Shrumi's work">
+          <div class="log-bar"><span>pipeline.log</span><span id="log-count">0 events</span></div>
+          <div class="log-body" id="log-body"></div>
+        </div>
+      </div>
+
+      <div class="pipe-wrap" role="group" aria-label="The data platform stack Shrumi works across">
+        <div class="pipe">
+          <div class="stage"><b>Sources</b><span>MySQL, FHIR APIs, claims files, operational data</span></div>
+          <div class="stage"><b>Stream</b><span>Kafka, Pub/Sub, Kinesis, Lambda</span></div>
+          <div class="stage"><b>Process</b><span>Spark, Databricks, Delta Lake</span></div>
+          <div class="stage"><b>Model</b><span>dbt, Snowflake, BigQuery</span></div>
+          <div class="stage"><b>Reason</b><span>LangChain, MCP, RAG, Vertex AI</span></div>
+          <div class="stage"><b>Serve</b><span>Dashboards, care plans, reports</span></div>
+        </div>
+      </div>
+      <p class="pipe-note">This is the path most of my production work follows: raw data in, trusted tables in the middle, and agents or dashboards that people use at the end.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <section class="sec" id="about">
+      <div class="rail"><h2>About</h2><p>Who I am and what I work on.</p></div>
+      <div class="sec-body about">
+        <p>I'm a data engineer at Zane Networks, where I design and scale cloud-native data platforms across healthcare and enterprise environments. My work runs the full stack: real-time streaming with Spark and Databricks, modern warehouses on GCP and AWS, and agentic AI systems built with LangChain, MCP servers and LLMs.</p>
+        <p>I hold a Master's in Computer Science from George Washington University. I like the point where production-grade data engineering meets GenAI, because that's where reliable, intelligent data systems get built.</p>
+        <dl class="facts">
+          <div><dt>Current role</dt><dd>Data Engineer, Zane Networks LLC</dd></div>
+          <div><dt>Education</dt><dd>MS Computer Science, GWU (GPA 3.91)</dd></div>
+          <div><dt>Location</dt><dd>Washington, DC</dd></div>
+          <div><dt>Looking for</dt><dd>Data Engineer, AI Engineer, Sr. Data Analyst</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="sec" id="impact">
+      <div class="rail"><h2>Impact</h2><p>Measured results from production and research work.</p></div>
+      <div class="sec-body">
+        <div class="metrics" id="metrics"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="work">
+      <div class="rail"><h2>Case studies</h2><p>Two areas I go deep in. Filter by focus.</p></div>
+      <div class="sec-body">
+        <div class="seg" role="group" aria-label="Filter case studies">
+          <button type="button" data-filter="all" aria-pressed="true">Both</button>
+          <button type="button" data-filter="ai" aria-pressed="false">Agentic AI</button>
+          <button type="button" data-filter="data" aria-pressed="false">Data platforms</button>
+        </div>
+        <p class="legend"><span><i style="background:var(--signal)"></i>Agentic AI</span><span><i style="background:var(--amber)"></i>Data platforms</span></p>
+        <div class="cases" id="cases"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="experience">
+      <div class="rail"><h2>Experience</h2><p>Every role, newest first. The current one is still running.</p></div>
+      <div class="sec-body">
+        <ol class="runs">
+          <li class="run live">
+            <div><div class="when">Jan 2024 to present</div><div class="state"><i></i>Running</div></div>
+            <div>
+              <h3>Data Engineer <span>at Zane Networks LLC</span></h3>
+              <p>Building healthcare and enterprise data platforms on GCP and AWS: streaming and CDC ingestion, a Databricks and Delta Lake lakehouse, dbt on Snowflake, CI/CD, and a growing set of AI agents. See the case studies above for the details.</p>
+              <ul class="chips"><li>Python</li><li>AWS</li><li>GCP</li><li>Databricks</li><li>Spark</li><li>Delta Lake</li><li>dbt</li><li>Snowflake</li><li>Airflow</li><li>FHIR API</li><li>Gemini</li><li>Jenkins</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">Mar 2025 to Sep 2025</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Sr. Data Analyst <span>at George Washington University</span></h3>
+              <p>Built a production R package on data.table, published with pkgdown and tested through GitHub Actions. Designed an indexed PostgreSQL database with synthetic data for pipeline validation. Wrote a Python MCP server so a LangChain-orchestrated Claude agent could draft publication-ready reports on its own, cutting report writing time by 70%.</p>
+              <ul class="chips"><li>Python</li><li>R</li><li>PostgreSQL</li><li>data.table</li><li>pkgdown</li><li>GitHub Actions</li><li>Shiny</li><li>ggplot2</li><li>LangChain</li><li>MCP</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">Aug 2023 to May 2024</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Graduate Teaching Assistant <span>at GWU Computer Science</span></h3>
+              <p>Supported Cloud Computing and Database Systems courses for 60+ students: ran Oracle lab sessions, graded work, held office hours, helped write new material and evaluated AWS lab assignments.</p>
+              <ul class="chips"><li>AWS</li><li>Google Cloud</li><li>Oracle</li><li>Relational databases</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">May 2023 to Aug 2023</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Graduate Research Assistant <span>at the Adam Group, GWU</span></h3>
+              <p>Built a Python mental health support chatbot using sentiment analysis and TensorFlow, giving real-time help to over 1,000 users a month.</p>
+              <ul class="chips"><li>NLP</li><li>Deep learning</li><li>TensorFlow</li><li>Python</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">Nov 2022 to Dec 2023</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Data and Operations Analyst <span>at Compass Group</span></h3>
+              <p>Designed a normalized BigQuery model for inventory, recipe and food logs. Replaced manual Excel reporting with Python ELT pipelines from GCS to BigQuery, cutting the reporting cycle by 70%, and shipped self-service Tableau dashboards.</p>
+              <ul class="chips"><li>GCP</li><li>BigQuery</li><li>Python</li><li>Tableau</li><li>Power BI</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">May 2021 to Aug 2022</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Data Engineer <span>at CDP India Pvt. Ltd.</span></h3>
+              <p>Built Spark and Kafka pipelines handling 5TB+ a day for 1M+ daily commuters. Forecast peak and off-peak railway traffic with ARIMA models, improving crew scheduling efficiency by 20%, and added automated anomaly checks on the ingested data.</p>
+              <ul class="chips"><li>AWS</li><li>Python</li><li>Spark</li><li>Kafka</li><li>Power BI</li><li>Time series</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">Aug 2021 to Oct 2021</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Machine Learning Intern <span>at Kubix Square</span></h3>
+              <p>Compared six algorithms (Gaussian Naive Bayes, SVM, CNN, KNN, linear regression, random forest) to improve sales predictions.</p>
+              <ul class="chips"><li>TensorFlow</li><li>Keras</li><li>PyTorch</li><li>Pandas</li><li>NumPy</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">Feb 2021 to Apr 2021</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Data Scientist and Business Analyst Intern <span>at Sparks Foundation</span></h3>
+              <p>Applied predictive analytics to real banking data and raised prediction accuracy to 84.5%.</p>
+              <ul class="chips"><li>Python</li><li>Google Cloud</li><li>SQL</li><li>Machine learning</li></ul>
+            </div>
+          </li>
+          <li class="run">
+            <div><div class="when">Jan 2020 to Dec 2020</div><div class="state done"><i></i>Completed</div></div>
+            <div>
+              <h3>Data Scientist Intern <span>at Dalal Finserve Pvt Ltd</span></h3>
+              <p>Built a database of 750+ customers for loan credibility analysis and reached 88% predictive accuracy through feature engineering and hyperparameter tuning. Built Tableau and Power BI dashboards with cross-functional teams.</p>
+              <ul class="chips"><li>MySQL</li><li>SQL</li><li>Python</li><li>Azure</li><li>Tableau</li><li>Power BI</li></ul>
+            </div>
+          </li>
+        </ol>
+        <div class="edu">
+          <div><h3>Master's in Computer Science</h3><p>George Washington University, Washington DC. Aug 2022 to May 2024. GPA 3.91. Focus on data analysis and machine learning: Big Data and Analytics, Data Mining, Algorithms, Applied Machine Learning, Information Retrieval.</p></div>
+          <div><h3>Bachelor of Engineering, Information Technology</h3><p>University of Mumbai (St. Francis Institute of Technology). Aug 2018 to May 2022. GPA 3.6. Software engineering, cloud computing, AI, business intelligence.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="toolkit">
+      <div class="rail"><h2>Toolkit</h2><p>What I use day to day, grouped by job.</p></div>
+      <div class="sec-body stack">
+        <div><h3>Languages</h3><ul class="chips"><li>Python</li><li>SQL</li><li>R</li></ul></div>
+        <div><h3>Cloud</h3><ul class="chips"><li>GCP: BigQuery, Pub/Sub, Cloud Functions, GKE, Vertex AI</li><li>AWS: Kinesis, Lambda, DynamoDB, ECS, ECR, SageMaker, CloudWatch</li></ul></div>
+        <div><h3>Data engineering</h3><ul class="chips"><li>Spark</li><li>Databricks</li><li>Delta Lake</li><li>Kafka</li><li>dbt</li><li>Snowflake</li><li>Airflow</li><li>PostgreSQL</li><li>MySQL</li><li>FHIR</li></ul></div>
+        <div><h3>AI and machine learning</h3><ul class="chips"><li>LangChain</li><li>MCP servers</li><li>RAG</li><li>Pinecone</li><li>Gemini</li><li>TensorFlow</li><li>PyTorch</li><li>scikit-learn</li></ul></div>
+        <div><h3>Delivery</h3><ul class="chips"><li>Docker</li><li>Kubernetes</li><li>GitHub Actions</li><li>Jenkins</li><li>Playwright</li></ul></div>
+        <div><h3>Analytics and BI</h3><ul class="chips"><li>Tableau</li><li>Power BI</li><li>R Shiny</li><li>ggplot2</li></ul></div>
+      </div>
+    </section>
+
+    <section class="sec" id="projects">
+      <div class="rail"><h2>Projects</h2><p>Published research and university work that shows my range.</p></div>
+      <div class="sec-body">
+        <h3 class="sub">Published research</h3>
+        <div class="papers">
+          <div class="paper">
+            <h3>Personality Predictors</h3>
+            <p>A BERT-based model that classifies 8,000 rows of text into 16 Myers-Briggs personality types, tested on real tweets. Published at the IEEE 2nd Asian Conference on Innovation in Technology.</p>
+            <a href="https://ieeexplore.ieee.org/abstract/document/9909077" target="_blank" rel="noopener">Read the paper</a>
+          </div>
+          <div class="paper">
+            <h3>Email phishing attack detection</h3>
+            <p>Compared LSTM, RNN and CNN models on the Enron dataset. The CNN beat the baseline and the other architectures. Accepted at HCII 2024.</p>
+          </div>
+        </div>
+        <h3 class="sub">Project archive</h3>
+        <div class="archive" id="archive"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="terminal">
+      <div class="rail"><h2>Terminal</h2><p>Prefer to explore by typing? Type help to see what it can do.</p></div>
+      <div class="sec-body">
+        <div class="term">
+          <div class="term-out" id="term-out" aria-live="polite"></div>
+          <form class="term-in" id="term-form" autocomplete="off">
+            <span class="mono" aria-hidden="true">$</span>
+            <input id="term-input" type="text" aria-label="Terminal command" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="help">
+          </form>
+        </div>
+        <div class="quick" id="quick"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="contact">
+      <div class="rail"><h2>Contact</h2><p>The fastest way to reach me is email.</p></div>
+      <div class="sec-body">
+        <p class="contact-lead">If you're building something with data and AI, I'd like to hear about it.</p>
+        <div class="cta" style="margin-bottom:2.75rem">
+          <a class="btn primary" href="mailto:shrumi.dedhia@gmail.com">shrumi.dedhia@gmail.com</a>
+          <button class="btn" type="button" id="copy-mail">Copy email</button>
+          <a class="btn" href="https://www.linkedin.com/in/shrumidedhia/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/shrumidedhia03" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="telemetry" id="telemetry" aria-label="Fun stats"></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Built by Shrumi Dedhia. Washington, DC.</div>
+</footer>
+
+<noscript><div class="wrap" style="padding:1rem 0">This portfolio uses JavaScript for its case studies and terminal. Email: shrumi.dedhia@gmail.com</div></noscript>
+
+<script>
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- Data ---------- */
+  var cases = [
+    { cat: 'ai', title: 'Multi-agent care plan generator', body: 'A multi-agent system streams FHIR-compliant workflow and assessment data into the warehouse, queries it on its own against defined parameters, and writes a personalized, printable care plan.', result: '<b>Outcome:</b> care plans produced from live clinical data without manual assembly.', stack: ['Multi-agent', 'FHIR', 'Data warehouse', 'LLMs'] },
+    { cat: 'ai', title: 'Claim rejection triage agent', body: 'An AI agent parses claim rejection files, cross-references the source transactions, and posts a plain-English remediation summary on the client dashboard.', result: '<b>Result:</b> 60% less time spent triaging errors by hand.', stack: ['AI agent', 'Claims data', 'Dashboard'] },
+    { cat: 'ai', title: 'Care plan search with RAG', body: 'A retrieval pipeline on Pinecone semantically indexes unstructured care plan documents, so staff can ask questions in natural language and spot care gaps across a whole population.', result: '<b>Scale:</b> 500K+ documents indexed.', stack: ['RAG', 'Pinecone', 'Embeddings', 'Python'] },
+    { cat: 'ai', title: '508 accessibility auditing platform', body: 'A headless Playwright crawler walks the UI while multimodal AI scans PDFs and assessments for accessibility problems, then generates remediation reports automatically.', result: '<b>Result:</b> manual compliance reviews eliminated.', stack: ['Playwright', 'Multimodal AI', 'Section 508', 'Python'] },
+    { cat: 'ai', title: 'MCP server and report-writing agent', body: 'A Python MCP server exposes PostgreSQL, statistical outputs and R Markdown generation as standard tools. A LangChain-orchestrated Claude agent uses them to write publication-ready narrative reports.', result: '<b>Result:</b> 70% less manual report writing.', stack: ['MCP', 'LangChain', 'Claude', 'PostgreSQL', 'R Markdown'] },
+    { cat: 'ai', title: 'Clinical decision support models', body: 'Vertex AI predictive models run over FHIR API healthcare streams to support clinical decisions.', result: '<b>Result:</b> 40% improvement in clinical decision support.', stack: ['Vertex AI', 'FHIR API', 'Streaming'] },
+    { cat: 'data', title: 'Warehouse pipelines at 5M+ records a day', body: 'Scalable warehouse pipelines tuned with partitioning, clustering and cost-efficient slot reservations.', result: '<b>Result:</b> 40% faster queries across 5M+ daily records.', stack: ['BigQuery', 'Partitioning', 'Clustering', 'Slot reservations'] },
+    { cat: 'data', title: 'Event-driven claims processing on AWS', body: 'Kinesis and Lambda trigger real-time transformations and claim submissions. Status records land in DynamoDB, and CloudWatch alarms with SNS alerts flag pipeline failures and SLA breaches.', result: '<b>Built for:</b> real-time processing with failure and SLA alerting.', stack: ['Kinesis', 'Lambda', 'DynamoDB', 'CloudWatch', 'SNS'] },
+    { cat: 'data', title: 'CDC ingestion on GCP', body: 'MySQL changes flow through Pub/Sub and Cloud Functions for incremental loading, keeping dashboards near real time.', result: '<b>Result:</b> 55% lower dashboard latency.', stack: ['MySQL', 'Pub/Sub', 'Cloud Functions', 'CDC'] },
+    { cat: 'data', title: 'HIPAA-compliant patient data pipelines', body: 'Databricks pipelines in Python mask PHI, validate schemas and run data quality checks before data moves downstream.', result: '<b>Result:</b> 75% less manual data preparation.', stack: ['Databricks', 'Python', 'PHI masking', 'Data quality'] },
+    { cat: 'data', title: 'Petabyte-scale lakehouse on Delta Lake', body: 'Distributed Spark transformations across petabyte-scale datasets, stored in Delta Lake for ACID guarantees, versioning and time travel across the enterprise lakehouse.', result: '<b>Scale:</b> petabyte-scale datasets.', stack: ['Spark', 'Delta Lake', 'Lakehouse'] },
+    { cat: 'data', title: 'dbt on Snowflake with a medallion layout', body: 'Modular SQL transformations across 40+ models, with built-in tests, documentation and version-controlled deployments.', result: '<b>Scale:</b> 40+ dbt models.', stack: ['dbt', 'Snowflake', 'Medallion architecture'] },
+    { cat: 'data', title: 'ELT workloads on Kubernetes', body: 'Containerized pipeline workloads on GKE with Kubernetes manifests and modular ELT workflows that load incrementally and use CDC.', result: '<b>Result:</b> 30% lower warehouse compute cost.', stack: ['GKE', 'Kubernetes', 'ELT', 'CDC'] },
+    { cat: 'data', title: 'Zero-touch CI/CD to AWS ECS', body: 'A GitHub Actions pipeline runs automated tests, builds Docker images and pushes them to ECR for hands-off deployment to ECS.', result: '<b>Result:</b> deployments with no manual steps.', stack: ['GitHub Actions', 'Docker', 'ECR', 'ECS'] }
+  ];
+
+  var metrics = [
+    { n: 5, suffix: 'M+', label: 'records a day through warehouse pipelines' },
+    { n: 5, suffix: 'TB+', label: 'of data a day for 1M+ commuters at CDP India' },
+    { n: 500, suffix: 'K+', label: 'care plan documents searchable with RAG' },
+    { n: 75, suffix: 'M', label: 'rows in the taxi fare prediction model' },
+    { n: 60, suffix: '%', label: 'less time triaging claim rejections' },
+    { n: 70, suffix: '%', label: 'less time writing reports with an MCP agent' },
+    { n: 55, suffix: '%', label: 'lower dashboard latency with CDC ingestion' },
+    { n: 30, suffix: '%', label: 'lower warehouse compute cost on GKE' }
+  ];
+
+  var archive = [
+    { t: 'Taxi fare prediction', c: 'Big Data Analytics', d: 'A pipeline on AWS that trains a model on 75 million rows, using CodeBuild for dataset operations, SageMaker for the model, CloudWatch for monitoring and S3 for data flow.', l: 'https://github.com/shrumidedhia03/gwbigdataanalytics2023-final-project-taxi-fare-predictors.git' },
+    { t: 'Clinical dashboard in R', c: 'R Programming', d: 'An R Shiny app that visualizes patient health trends and clinical study metrics, backed by custom R functions and packages that automate cleaning and analysis.' },
+    { t: 'Email sender system', c: 'Software Engineering', d: 'A web app built with React, Node.js, MySQL and a REST API for composing and sending email and storing messages.', l: 'https://github.com/shrumidedhia03/Email_System' },
+    { t: 'Microprocessor system', c: 'Computer Systems Architecture', d: 'A microprocessor design in Java with a Swing GUI, built with Maven and tested with Maven.', l: 'https://github.com/shrumidedhia03/Computer-Systems-Architecture-Project' },
+    { t: 'GW Meals', c: 'Database Management Systems', d: 'A meal delivery system in Oracle APEX, with Chen-style ERDs, relational schemas, SQL scripts and the front end.' },
+    { t: 'Personality Predictors', c: 'Machine Learning', d: 'Predicts Myers-Briggs type from text with a BERT-base model. Also published as a research paper.', l: 'https://github.com/shrumidedhia03/Personality_Predictors' },
+    { t: 'Skin care website', c: 'Web Development', d: 'A full e-commerce site built alone, front end and back end, with HTML, CSS, PHP, JavaScript, JSON and XML, connected to MySQL.', l: 'https://github.com/shrumidedhia03/Web_Development_Project' },
+    { t: 'Smart water level detection', c: 'Internet of Everything', d: 'An Arduino UNO system using IEEE 802.15, sensors and actuators that cuts off the water supply automatically when the tank is full.' }
+  ];
+
+  var tele = [
+    { n: 25, l: 'projects completed' },
+    { n: 4, l: 'internships completed' },
+    { n: 120, l: 'crazy ideas logged' },
+    { n: 90, l: 'sleepless nights' },
+    { n: 1500, l: 'coffee cups' },
+    { n: 2000, l: 'hours in the terminal' }
+  ];
+
+  var logs = [
+    ['ingest', '', 'MySQL changes stream in through Pub/Sub. Dashboard latency down 55%.'],
+    ['process', '', '5M+ records a day partitioned and clustered. Queries 40% faster.'],
+    ['validate', 'g', 'PHI masked, schemas checked. Manual prep down 75%.'],
+    ['model', '', '40+ dbt models built on Snowflake in a medallion layout.'],
+    ['agent', 'a', 'Claim rejections explained in plain English. Triage time down 60%.'],
+    ['index', 'a', '500K+ care plans indexed. Ask in natural language.'],
+    ['audit', 'a', '508 accessibility reviews run by a headless crawler and multimodal AI.'],
+    ['serve', 'g', 'Personalized care plan generated from FHIR data.']
+  ];
+
+  /* ---------- Boot sequence ---------- */
+  var boot = $('#boot');
+  var bootText = $('#boot-text');
+  var bootLines = [
+    '<span class="sig">$</span> pipeline run portfolio --owner shrumi',
+    '<span class="dim">ingest    </span> resume, projects, papers ........ <span class="ok">ok</span>',
+    '<span class="dim">transform </span> 14 case studies, 9 roles ........ <span class="ok">ok</span>',
+    '<span class="dim">validate  </span> metrics checked against source .. <span class="ok">ok</span>',
+    '<span class="dim">serve     </span> ready',
+    ''
+  ];
+  var bootDone = false;
+  function finishBoot() {
+    if (bootDone) return;
+    bootDone = true;
+    boot.classList.add('done');
+    startLog();
+    startRoles();
+    setTimeout(function () { if (boot.parentNode) boot.style.display = 'none'; }, 600);
+  }
+  function runBoot() {
+    if (reduce) { finishBoot(); return; }
+    var i = 0;
+    var timer = setInterval(function () {
+      if (bootDone) { clearInterval(timer); return; }
+      bootText.innerHTML += bootLines[i] + '\n';
+      i++;
+      if (i >= bootLines.length) {
+        clearInterval(timer);
+        setTimeout(finishBoot, 450);
+      }
+    }, 230);
+    boot.addEventListener('click', finishBoot);
+    window.addEventListener('keydown', finishBoot, { once: true });
+  }
+
+  /* ---------- Rotating role line ---------- */
+  var roles = ['Data engineer', 'Agentic AI builder', 'Cloud architect'];
+  var roleEl = $('#role');
+  var roleStarted = false;
+  function startRoles() {
+    if (roleStarted) return; roleStarted = true;
+    if (reduce) { roleEl.textContent = roles.join(', '); return; }
+    var r = 0, c = 0, del = false;
+    (function tick() {
+      var word = roles[r];
+      roleEl.textContent = word.slice(0, c);
+      var wait = del ? 35 : 75;
+      if (!del && c === word.length) { del = true; wait = 1400; }
+      else if (del && c === 0) { del = false; r = (r + 1) % roles.length; wait = 350; }
+      else { c += del ? -1 : 1; }
+      setTimeout(tick, wait);
+    })();
+  }
+
+  /* ---------- Live log ---------- */
+  var logBody = $('#log-body');
+  var logCount = $('#log-count');
+  var logStarted = false, logIdx = 0, logTotal = 0;
+  function addLog() {
+    var e = logs[logIdx % logs.length];
+    logIdx++; logTotal++;
+    var s = (logTotal * 3);
+    var t = '+' + String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+    var row = document.createElement('div');
+    row.className = 'log-line';
+    row.innerHTML = '<span class="t">' + t + '</span><span class="k ' + e[1] + '">' + e[0] + '</span><span>' + e[2] + '</span>';
+    logBody.appendChild(row);
+    while (logBody.children.length > 8) logBody.removeChild(logBody.firstChild);
+    logCount.textContent = logTotal + (logTotal === 1 ? ' event' : ' events');
+  }
+  function startLog() {
+    if (logStarted) return; logStarted = true;
+    if (reduce) { for (var i = 0; i < logs.length; i++) addLog(); return; }
+    addLog(); addLog();
+    setInterval(addLog, 2200);
+  }
+
+  /* ---------- Render: metrics, cases, archive, telemetry ---------- */
+  var metricsEl = $('#metrics');
+  metricsEl.innerHTML = metrics.map(function (m) {
+    return '<div class="metric"><div class="n" data-n="' + m.n + '" data-suffix="' + m.suffix + '">' + m.n + m.suffix + '</div><p>' + m.label + '</p></div>';
+  }).join('');
+
+  $('#cases').innerHTML = cases.map(function (c) {
+    return '<article class="case" data-cat="' + c.cat + '"><h3>' + c.title + '</h3><p>' + c.body + '</p><p class="result">' + c.result + '</p><ul class="chips">' +
+      c.stack.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ul></article>';
+  }).join('');
+
+  $('#archive').innerHTML = archive.map(function (p) {
+    return '<article class="proj"><h3>' + p.t + '</h3><p class="course">' + p.c + '</p><p>' + p.d + '</p>' +
+      (p.l ? '<a href="' + p.l + '" target="_blank" rel="noopener">View on GitHub</a>' : '') + '</article>';
+  }).join('');
+
+  $('#telemetry').innerHTML = tele.map(function (t) {
+    return '<div><b data-n="' + t.n + '" data-suffix="">' + t.n + '</b><span>' + t.l + '</span></div>';
+  }).join('');
+
+  /* ---------- Case filter ---------- */
+  $$('.seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-filter');
+      $$('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $$('.case').forEach(function (c) { c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f); });
+    });
+  });
+
+  /* ---------- Count up when metrics scroll into view ---------- */
+  function countUp(el) {
+    var target = parseFloat(el.getAttribute('data-n'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduce) { el.textContent = target.toLocaleString() + suffix; return; }
+    var start = null, dur = 1100;
+    el.textContent = '0' + suffix;
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { countUp(en.target); cio.unobserve(en.target); }
+      });
+    }, { threshold: 0.6 });
+    $$('[data-n]').forEach(function (el) { cio.observe(el); });
+  }
+
+  /* ---------- Scroll progress and active nav ---------- */
+  var prog = $('#progress');
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(window.scrollY / h, 1) : 0) + ')';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var navLinks = $$('nav.links a');
+  if ('IntersectionObserver' in window) {
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var id = en.target.id;
+          navLinks.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + id); });
+        }
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    $$('main .sec').forEach(function (s) { sio.observe(s); });
+  }
+
+  /* ---------- Theme toggle ---------- */
+  var root = document.documentElement;
+  var themeBtn = $('#theme');
+  function currentTheme() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  } catch (e) {}
+  function labelTheme() { themeBtn.textContent = currentTheme() === 'dark' ? 'light mode' : 'dark mode'; }
+  labelTheme();
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    labelTheme();
+  });
+
+  /* ---------- Copy email ---------- */
+  var copyBtn = $('#copy-mail');
+  copyBtn.addEventListener('click', function () {
+    var mail = 'shrumi.dedhia@gmail.com';
+    function done(ok) {
+      copyBtn.textContent = ok ? 'Copied' : 'Copy failed. Select the email above.';
+      setTimeout(function () { copyBtn.textContent = 'Copy email'; }, 2000);
+    }
+    try {
+      navigator.clipboard.writeText(mail).then(function () { done(true); }, function () { done(false); });
+    } catch (e) { done(false); }
+  });
+
+  /* ---------- Terminal ---------- */
+  var out = $('#term-out');
+  var input = $('#term-input');
+  var history = [], hIdx = 0;
+  var CV = 'https://drive.google.com/file/d/1RjzD8bsN5yvCzJ70yyn0Zav4Q8ubWkwv/view?usp=sharing';
+
+  function print(html, cls) {
+    var d = document.createElement('div');
+    d.className = 'line ' + (cls || '');
+    d.innerHTML = html;
+    out.appendChild(d);
+    out.scrollTop = out.scrollHeight;
+  }
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function titles(cat) { return cases.filter(function (c) { return c.cat === cat; }).map(function (c) { return '  ' + c.title; }).join('\n'); }
+
+  var commands = {
+    help: function () {
+      return 'Available commands:\n  whoami     who I am\n  impact     headline numbers\n  work       case study titles\n  stack      tools I use\n  papers     published research\n  projects   university project archive\n  resume     open my CV\n  contact    how to reach me\n  clear      clear the screen';
+    },
+    whoami: function () {
+      return 'Shrumi Dedhia. Data engineer, agentic AI builder and cloud architect.\nMS Computer Science, George Washington University (GPA 3.91).\nBased in Washington, DC. Currently at Zane Networks LLC.';
+    },
+    impact: function () {
+      return metrics.map(function (m) { return '  ' + (m.n + m.suffix).padEnd(7) + m.label; }).join('\n');
+    },
+    work: function () {
+      return 'Agentic AI\n' + titles('ai') + '\n\nData platforms\n' + titles('data');
+    },
+    stack: function () {
+      return 'Languages   Python, SQL, R\nCloud       GCP, AWS\nData        Spark, Databricks, Delta Lake, Kafka, dbt, Snowflake, Airflow\nAI          LangChain, MCP, RAG, Pinecone, Vertex AI, Gemini, TensorFlow, PyTorch\nDelivery    Docker, Kubernetes, GitHub Actions, Jenkins, Playwright\nBI          Tableau, Power BI, R Shiny';
+    },
+    papers: function () {
+      return 'Personality Predictors: IEEE 2nd Asian Conference on Innovation in Technology\n  <a href="https://ieeexplore.ieee.org/abstract/document/9909077" target="_blank" rel="noopener">ieeexplore.ieee.org/abstract/document/9909077</a>\nEmail phishing attack detection: accepted at HCII 2024';
+    },
+    projects: function () {
+      return archive.map(function (p) { return '  ' + p.t + ' (' + p.c + ')'; }).join('\n');
+    },
+    resume: function () {
+      window.open(CV, '_blank', 'noopener');
+      return 'Opening my CV. If nothing opened, use this link: <a href="' + CV + '" target="_blank" rel="noopener">Download CV</a>';
+    },
+    contact: function () {
+      return 'Email     <a href="mailto:shrumi.dedhia@gmail.com">shrumi.dedhia@gmail.com</a>\nLinkedIn  <a href="https://www.linkedin.com/in/shrumidedhia/" target="_blank" rel="noopener">linkedin.com/in/shrumidedhia</a>\nGitHub    <a href="https://github.com/shrumidedhia03" target="_blank" rel="noopener">github.com/shrumidedhia03</a>';
+    },
+    ls: function () { return 'about  impact  work  experience  toolkit  projects  terminal  contact'; },
+    clear: function () { out.innerHTML = ''; return null; },
+    'sudo hire-me': function () {
+      setTimeout(function () { var c = $('#contact'); if (c) c.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }, 500);
+      return '<span class="ok">Permission granted.</span> Taking you to the contact section.';
+    }
+  };
+  commands.hire = commands['sudo hire-me'];
+
+  function run(raw) {
+    var cmd = raw.trim().toLowerCase().replace(/\s+/g, ' ');
+    if (!cmd) return;
+    print('<span class="cmd">$ ' + esc(raw.trim()) + '</span>');
+    history.push(raw.trim()); hIdx = history.length;
+    var fn = commands[cmd];
+    if (fn) {
+      var res = fn();
+      if (res !== null && res !== undefined) print(res);
+    } else {
+      print('Command not found: ' + esc(cmd) + '. Type <span class="cmd">help</span> to see what works.', 'muted');
+    }
+  }
+
+  $('#term-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    run(input.value);
+    input.value = '';
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowUp' && history.length) {
+      e.preventDefault(); hIdx = Math.max(0, hIdx - 1); input.value = history[hIdx] || '';
+    } else if (e.key === 'ArrowDown' && history.length) {
+      e.preventDefault(); hIdx = Math.min(history.length, hIdx + 1); input.value = history[hIdx] || '';
+    }
+  });
+
+  print('Type a command below, or tap one of the buttons. Try <span class="cmd">help</span>.', 'muted');
+  $('#quick').innerHTML = ['help', 'whoami', 'impact', 'work', 'stack', 'papers', 'contact', 'sudo hire-me'].map(function (c) {
+    return '<button type="button" data-cmd="' + c + '">' + c + '</button>';
+  }).join('');
+  $$('#quick button').forEach(function (b) {
+    b.addEventListener('click', function () { run(b.getAttribute('data-cmd')); });
+  });
+
+  runBoot();
+})();
+</script>
 </body>
-
 </html>
-
-
